@@ -41,7 +41,7 @@
 #ifndef DATATYPES_H
 #define DATATYPES_H
 
-typedef unsigned char           Unt8;   // 1 byte >> 8 bits
+typedef unsigned char           Uch8;   // 1 byte >> 8 bits
 typedef unsigned short int      Unt16;  // 2 byte >> 16 bits
 typedef unsigned long int       Unt32;  // 4 byte >> 32 bits
 typedef unsigned long long int  Unt64;  // 8 byte >> 64 bits
