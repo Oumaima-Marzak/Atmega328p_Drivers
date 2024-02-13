@@ -9,6 +9,15 @@
 #define DIO_REG_H
 
 #include "DataTypes.h"
+#include "BitConfig.h"
+
+/* Digital I/O registers in Atmega328p (PORT, PIN, DDR) */
+#define Reg_B 0
+#define Reg_C 1
+#define Reg_D 2
+
+#define HIGH 1
+#define LOW  0
 
 #define PINB (*(volatile Uch8 *)(0x03 + 0x20))
 #define PINB0 0
@@ -96,6 +105,12 @@
 #define PORTD5 5
 #define PORTD6 6
 #define PORTD7 7
+
+
+void configure_pin_direction(PinConfig pin);
+void configure_pin_state(PinConfig pin, Uch8 STATE);
+
+
 
 
 #endif
