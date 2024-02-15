@@ -47,13 +47,6 @@ typedef unsigned short int       Unt16;  // 2 byte >> 16 bits
 typedef unsigned long  int       Unt32;  // 4 byte >> 32 bits
 typedef unsigned long  long int  Unt64;  // 8 byte >> 64 bits
 
-typedef struct 
-{
-    
-    Uch8 pin;
-    Uch8 ddr;
-    Uch8 port;
 
-} PinConfig;
 
 #endif
