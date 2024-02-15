@@ -24,7 +24,7 @@ void configure_pin_direction(PinConfig pin)
 
 void configure_pin_state(PinConfig pin, Uch8 STATE)
 {
-        switch (pin.port)
+    switch (pin.port)
     {
         case Reg_B:
         
@@ -62,6 +62,49 @@ void configure_pin_state(PinConfig pin, Uch8 STATE)
         {
             CLEAR_VAL_BIT(PORTD, pin.pin);
         } 
+
+        break;
+    
+    }
+}
+
+void set_pin_state(PinConfig pin)
+{
+    switch (pin.port)
+    {
+        case Reg_B :
+        SET_VAL_BIT(PORTB, pin.pin);
+        break;
+
+        case Reg_C :
+        SET_VAL_BIT(PORTC, pin.pin);
+        break;
+
+        case Reg_D :
+        SET_VAL_BIT(PORTD, pin.pin);
+        break;
+    }
+}
+
+void clear_pin_state(PinConfig pin)
+{
+    switch (pin.port)
+    {
+        case Reg_B:
+
+        CLEAR_VAL_BIT(PORTB, pin.pin);
+
+        break;
+
+        case Reg_C:
+
+        CLEAR_VAL_BIT(PORTC, pin.pin); 
+
+        break;
+
+        case Reg_D:
+        
+        CLEAR_VAL_BIT(PORTD, pin.pin); 
 
         break;
     
