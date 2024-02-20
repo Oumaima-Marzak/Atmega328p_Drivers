@@ -11,6 +11,7 @@
 #include "DataTypes.h"
 #include "BitConfig.h"
 
+
 /* Digital I/O registers in Atmega328p (PORT, PIN, DDR) */
 #define Reg_B 0
 #define Reg_C 1
@@ -57,15 +58,6 @@
 #define PD5 5
 #define PD6 6
 #define PD7 7
-
-typedef struct 
-{
-    
-    Uch8 pin;
-    Uch8 ddr;
-    Uch8 port;
-
-} PinConfig;
 
 
 void configure_pin_direction(PinConfig pin);
