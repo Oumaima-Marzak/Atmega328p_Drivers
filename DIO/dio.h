@@ -17,8 +17,11 @@
 #define Reg_C 1
 #define Reg_D 2
 
-#define HIGH 1
 #define LOW  0
+#define HIGH 1
+
+#define IN   0
+#define OUT  1   
 
 #define PINB  (*(volatile Uch8 *)(0x03 + 0x20))
 #define DDRB  (*(volatile Uch8 *)(0x04 + 0x20))
@@ -60,10 +63,13 @@
 #define PD7 7
 
 
-void configure_pin_direction(PinConfig pin);
+void configure_pin_direction(PinConfig pin, Uch8 dir);
 void configure_pin_state(PinConfig pin, Uch8 STATE);
+
 void set_pin_state(PinConfig pin);
 void clear_pin_state(PinConfig pin);
+void toggle_pin_state(PinConfig pin);
+
 
 
 

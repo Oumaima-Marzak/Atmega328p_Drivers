@@ -3,23 +3,51 @@
 #include "BitConfig.h"
 
 
-void configure_pin_direction(PinConfig pin)
-{
-    switch (pin.ddr) 
+void configure_pin_direction(PinConfig pin, Uch8 dir)
+{ 
+    
+    switch (pin.port)
     {
         case Reg_B:
+        
+        if (dir == OUT)
+        {
             SET_VAL_BIT(DDRB, pin.pin);
-            break;
+        }
+        else
+        {
+            CLEAR_VAL_BIT(DDRB, pin.pin);
+        } 
+
+        break;
 
         case Reg_C:
+        
+        if (dir == OUT)
+        {
             SET_VAL_BIT(DDRC, pin.pin);
-            break;
+        }
+        else
+        {
+            CLEAR_VAL_BIT(DDRC, pin.pin);
+        } 
+
+        break;
 
         case Reg_D:
+        
+        if (dir == OUT)
+        {
             SET_VAL_BIT(DDRD, pin.pin);
-            break;
-    }
+        }
+        else
+        {
+            CLEAR_VAL_BIT(DDRD, pin.pin);
+        } 
+
+        break;
     
+    }   
 }
 
 void configure_pin_state(PinConfig pin, Uch8 STATE)
@@ -105,6 +133,31 @@ void clear_pin_state(PinConfig pin)
         case Reg_D:
         
         CLEAR_VAL_BIT(PORTD, pin.pin); 
+
+        break;
+    
+    }
+}
+
+void toggle_pin_state(PinConfig pin)
+{
+    switch (pin.port)
+    {
+        case Reg_B:
+
+        TOGGLE_VAL_BIT(PORTB, pin.pin);
+
+        break;
+
+        case Reg_C:
+
+        TOGGLE_VAL_BIT(PORTC, pin.pin); 
+
+        break;
+
+        case Reg_D:
+        
+        TOGGLE_VAL_BIT(PORTD, pin.pin); 
 
         break;
     
