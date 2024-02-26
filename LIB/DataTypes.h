@@ -15,9 +15,6 @@
 *      -----------------------------------------------------
 *      |  Size  |2/4 bytes| 1 byte  |  4 Bytes |  8 Bytes  |
 *      -----------------------------------------------------     
-*               |         |         
-*               |         |
-*               |         |
 *   
 *    + Short & Long or signed & unsigned are qualifiers not data types. 
 *    + Qualifiers in C are keywords that modify the behavior or properties of other data types. 
@@ -47,6 +44,13 @@ typedef unsigned short int       Unt16;  // 2 byte >> 16 bits
 typedef unsigned long  int       Unt32;  // 4 byte >> 32 bits
 typedef unsigned long  long int  Unt64;  // 8 byte >> 64 bits
 
+typedef struct 
+{
+    
+    Uch8 pin;
+    Uch8 ddr;
+    Uch8 port;
 
+} PinConfig;
 
 #endif
