@@ -5,95 +5,62 @@
 
 void configure_pin_direction(PinConfig pin, Uch8 dir)
 { 
-    
+    volatile Uch8 *ddr;
+
     switch (pin.port)
     {
         case Reg_B:
-        
-        if (dir == OUT)
-        {
-            SET_VAL_BIT(DDRB, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(DDRB, pin.pin);
-        } 
-
-        break;
+         ddr = &DDRB;
+         break;
 
         case Reg_C:
-        
-        if (dir == OUT)
-        {
-            SET_VAL_BIT(DDRC, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(DDRC, pin.pin);
-        } 
-
-        break;
+         ddr = &DDRC;
+         break;
 
         case Reg_D:
-        
-        if (dir == OUT)
-        {
-            SET_VAL_BIT(DDRD, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(DDRD, pin.pin);
-        } 
-
-        break;
+         ddr = &DDRD;
+         break;
     
-    }   
+    }  
+
+    if (dir == OUT)
+    {
+        SET_VAL_BIT(*ddr, pin.pin);
+    }
+    else
+    {
+        CLEAR_VAL_BIT(*ddr, pin.pin);
+    }  
 }
 
 void configure_pin_state(PinConfig pin, Uch8 STATE)
 {
+    volatile Uch8 *port;
+
     switch (pin.port)
     {
         case Reg_B:
-        
-        if (STATE == HIGH)
-        {
-            SET_VAL_BIT(PORTB, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(PORTB, pin.pin);
-        } 
-
-        break;
+         port = &PORTB;
+         break;
 
         case Reg_C:
-        
-        if (STATE == HIGH)
-        {
-            SET_VAL_BIT(PORTC, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(PORTC, pin.pin);
-        } 
-
-        break;
+         port = &PORTC;
+         break;
 
         case Reg_D:
-        
-        if (STATE == HIGH)
-        {
-            SET_VAL_BIT(PORTD, pin.pin);
-        }
-        else
-        {
-            CLEAR_VAL_BIT(PORTD, pin.pin);
-        } 
-
-        break;
+         port = &PORTD;
+         break;
     
+    }  
+
+    if (STATE == HIGH)
+    {
+        SET_VAL_BIT(*port, pin.pin);
     }
+    else
+    {
+        CLEAR_VAL_BIT(*port, pin.pin);
+    }  
 }
 
 void set_pin_state(PinConfig pin)
