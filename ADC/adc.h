@@ -7,6 +7,7 @@
 #define ADC_H
 
 #include "DataTypes.h"
+#include "BitConfig.h"
 
 /* ADC Registers Address */
 
@@ -71,7 +72,27 @@
 #define ADC4D 4
 #define ADC5D 5
 
+// Define configuration options for ADC reference
+#define ADC_REF_AREF     0
+#define ADC_REF_AVCC     1
+#define ADC_REF_INTERNAL 2
 
+// Define configuration options for ADC prescaler
+#define ADC_PRESCALER_2     1
+#define ADC_PRESCALER_4     2
+#define ADC_PRESCALER_8     3
+#define ADC_PRESCALER_16    4
+#define ADC_PRESCALER_32    5
+#define ADC_PRESCALER_64    6
+#define ADC_PRESCALER_128   7
+
+
+/* Functions Prototypes */
+void adc_ref_config();
+void adc_prescaler_config(); 
+
+void adc_init();
+Unt16 adc_read(Unt16 channel);
 
 
 

@@ -30,6 +30,10 @@ For more details check the Atmega328p Datasheet.
 ### Digital Input/Output Ports (DIO)
  [DIO Documentation](https://github.com/Oumaima-Marzak/Atmega328p_Drivers/tree/master/DIO)
 
+### Analog to Digital Converter (ADC)
+ [ADC Documentation](https://github.com/Oumaima-Marzak/Atmega328p_Drivers/tree/master/ADC)
+ 
+
 
 
 
