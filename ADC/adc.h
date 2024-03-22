@@ -86,12 +86,26 @@
 #define ADC_PRESCALER_64    6
 #define ADC_PRESCALER_128   7
 
+// Define Trigger source options 
+#define Free_Running_mode       0
+#define Analog_Comparator       1
+#define Ext_Int_Request         2
+#define Timer0_Compare_Match_A  3
+#define Timer0_Overflow         4
+#define Timer1_Compare_Match_B  5
+#define Timer1_Overflow         6
+#define Timer1_Capture_Event    7
+
 
 /* Functions Prototypes */
-void adc_ref_config();
-void adc_prescaler_config(); 
+void adc_ref_config(Uch8 reference);
+
+void adc_prescaler_config(Uch8 prescaler); 
+
+void adc_auto_trigger(Uch8 source);
 
 void adc_init();
+
 Unt16 adc_read(Unt16 channel);
 
 

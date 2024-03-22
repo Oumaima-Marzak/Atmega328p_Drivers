@@ -1,6 +1,9 @@
+/*
+*   Author : Oumaima MARZAK
+*
+*/
+
 #include "adc.h"
-
-
 
 /* Configure the ADC reference 
 
@@ -106,6 +109,62 @@ void adc_prescaler_config(Uch8 prescaler)
     }
 }
 
+void adc_auto_trigger(Uch8 source)
+{
+    //Enable the ADC auto Trigger
+    SET_VAL_BIT(ADCSRA, ADATE);
+
+    switch(source)
+    {
+
+        case Free_Running_mode :
+            // No action needed, Free Running selected by default
+            break;         
+
+        case  Analog_Comparator:
+
+            SET_VAL_BIT(ADCSRB, ADTS0);
+            
+            break;   
+
+        case  Ext_Int_Request:
+
+            SET_VAL_BIT(ADCSRB, ADTS1);
+            
+            break;   
+
+        case Timer0_Compare_Match_A :
+
+            ADCSRB |= (1 << ADTS1) | (1 << ADTS0);
+
+            break;   
+
+        case Timer0_Overflow :
+
+            SET_VAL_BIT(ADCSRB, ADTS2);
+
+            break;  
+
+        case Timer1_Compare_Match_B :
+
+            ADCSRB |= (1 << ADTS2) | (1 << ADTS0);
+            
+            break;  
+
+        case Timer1_Overflow :
+
+            ADCSRB |= (1 << ADTS2) | (1 << ADTS1);
+
+            break;
+
+        case Timer1_Capture_Event :
+
+            ADCSRB |= (1 << ADTS2) | (1 << ADTS1) | (1 << ADTS0);
+
+            break;    
+
+    }
+}
 
 void adc_init()
 {
@@ -118,7 +177,7 @@ Unt16 adc_read(Unt16 channel)
     // Select ADC channel (0-7)
     ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);
 
-    // Start single conversion
+    // Start conversion
     ADCSRA |= (1 << ADSC);
 
     // Wait for conversion to complete
@@ -130,3 +189,5 @@ Unt16 adc_read(Unt16 channel)
     // Return ADC result
     return adc_result;
 }
+
+
