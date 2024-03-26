@@ -108,6 +108,10 @@ void adc_init();
 
 Unt16 adc_read(Unt16 channel);
 
+void adc_init_temperature_sensor();
+
+Unt16 read_internal_temperature(); 
+
 
 
 

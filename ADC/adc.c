@@ -109,69 +109,80 @@ void adc_prescaler_config(Uch8 prescaler)
     }
 }
 
+/* Select ADC trigger source
+
+    source options :
+        
+        Free_Running_mode       
+        Analog_Comparator       
+        Ext_Int_Request         
+        Timer0_Compare_Match_A  
+        Timer0_Overflow         
+        Timer1_Compare_Match_B  
+        Timer1_Overflow         
+        Timer1_Capture_Event    
+
+*/
 void adc_auto_trigger(Uch8 source)
 {
     //Enable the ADC auto Trigger
     SET_VAL_BIT(ADCSRA, ADATE);
 
-    switch(source)
-    {
-
-        case Free_Running_mode :
-            // No action needed, Free Running selected by default
-            break;         
-
-        case  Analog_Comparator:
-
-            SET_VAL_BIT(ADCSRB, ADTS0);
-            
-            break;   
-
-        case  Ext_Int_Request:
-
-            SET_VAL_BIT(ADCSRB, ADTS1);
-            
-            break;   
-
-        case Timer0_Compare_Match_A :
-
-            ADCSRB |= (1 << ADTS1) | (1 << ADTS0);
-
-            break;   
-
-        case Timer0_Overflow :
-
-            SET_VAL_BIT(ADCSRB, ADTS2);
-
-            break;  
-
-        case Timer1_Compare_Match_B :
-
-            ADCSRB |= (1 << ADTS2) | (1 << ADTS0);
-            
-            break;  
-
-        case Timer1_Overflow :
-
-            ADCSRB |= (1 << ADTS2) | (1 << ADTS1);
-
+    // Switch-case statement to select the ADC trigger source 
+    switch (source) 
+    { 
+        case Free_Running_mode: 
+        // No action needed, Free Running selected by default 
+        break; 
+        
+        case Analog_Comparator: // Set ADC trigger source to Analog Comparator 
+            SET_VAL_BIT(ADCSRB, ADTS0); 
+            break; 
+        
+        case Ext_Int_Request: // Set ADC trigger source to External Interrupt Request 
+            SET_VAL_BIT(ADCSRB, ADTS1); 
+            break; 
+        
+        case Timer0_Compare_Match_A: // Set ADC trigger source to Timer0 Compare Match A 
+            SET_VAL_BIT(ADCSRB, ADTS1); 
+            SET_VAL_BIT(ADCSRB, ADTS0); 
+            break; 
+        
+        case Timer0_Overflow: // Set ADC trigger source to Timer0 Overflow 
+            SET_VAL_BIT(ADCSRB, ADTS2); 
+            break; 
+        
+        case Timer1_Compare_Match_B: // Set ADC trigger source to Timer1 Compare Match B 
+            SET_VAL_BIT(ADCSRB, ADTS2); 
+            SET_VAL_BIT(ADCSRB, ADTS0); 
+            break; 
+        
+        case Timer1_Overflow: // Set ADC trigger source to Timer1 Overflow 
+            SET_VAL_BIT(ADCSRB, ADTS2); 
+            SET_VAL_BIT(ADCSRB, ADTS1); 
+            break; 
+        
+        case Timer1_Capture_Event: // Set ADC trigger source to Timer1 Capture Event 
+            SET_VAL_BIT(ADCSRB, ADTS0); 
+            SET_VAL_BIT(ADCSRB, ADTS2); 
+            SET_VAL_BIT(ADCSRB, ADTS1);  
             break;
-
-        case Timer1_Capture_Event :
-
-            ADCSRB |= (1 << ADTS2) | (1 << ADTS1) | (1 << ADTS0);
-
-            break;    
-
     }
 }
 
+/* 
+    Function to enable the ADC     
+*/
 void adc_init()
 {
     // Enable ADC
     ADCSRA |= (1 << ADEN); 
 }
 
+
+/* 
+    Reads the digital value from a specific ADC channel
+*/
 Unt16 adc_read(Unt16 channel)
 {
     // Select ADC channel (0-7)
@@ -189,5 +200,52 @@ Unt16 adc_read(Unt16 channel)
     // Return ADC result
     return adc_result;
 }
+
+/*
+    Initializes ADC for temperature measurement
+    
+    Note: Calling adc_init_temperature_sensor() eliminates the need for separate calls to configure ADC settings using 
+    adc_ref_config(), adc_prescaler_config(), and adc_init().
+
+*/
+void adc_init_temperature_sensor() {
+
+    // Select ADC channel 8 (internal temperature sensor)
+    ADMUX = (ADMUX & 0xF0) | 0x08;
+    
+    // Set ADC reference to Internal 1.1V Voltage Reference
+    ADMUX |= (1 << REFS1) | (1 << REFS0);
+    
+    // Set ADC prescaler to 128 (ADC clock frequency = 16 MHz / 128 = 125 kHz)
+    ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+    
+    // Enable ADC
+    ADCSRA |= (1 << ADEN);
+}
+
+/* 
+    Function to read temperature from internal sensor     
+*/
+Unt16 read_internal_temperature() {
+    
+    // Start conversion
+    ADCSRA |= (1 << ADSC);
+    
+    // Wait for conversion to complete
+    while (ADCSRA & (1 << ADSC));
+    
+    // Read ADC result (combine ADCH and ADCL)
+    Unt16 adc_value = (ADCH << 8) | ADCL;
+    
+    // Coefficients for temperature calculation
+    const Unt16 TOS = 314; // Offset voltage at 25°C (mV)
+    const Unt16 k = 1; // Coefficient (mV/°C)
+    
+    // Calculate temperature using formula: T = { (ADC_value - TOS) / k }
+    Unt16 temperature = ((Unt16)adc_value - TOS) / k;
+    
+    return temperature;
+}
+
 
 
