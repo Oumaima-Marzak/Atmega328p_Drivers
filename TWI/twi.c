@@ -141,7 +141,7 @@ TWI_Status_t TWI_address_packet_transmit(Uch8 SLA, bool R_W)
 
     Uch8 status = TWSR & 0xF8;
 
-    if ((status != TWI_MT_SLA_NACK) && (status != TWI_MR_SLA_NACK))
+    if ((status == TWI_MT_SLA_NACK) || (status == TWI_MR_SLA_NACK))
     {
         Error = TWI_ERROR_SLA_NACK;
     } 
