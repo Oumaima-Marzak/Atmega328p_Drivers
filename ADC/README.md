@@ -1,15 +1,16 @@
 # Digital to Analog Converter (ADC) ATmega328p
 
 ## 1. Overview : 
- ADCs Operation Process :
 
-    1. Sampling: The ADC samples the analog input signal at discrete time intervals. This involves capturing the voltage of the analog signal at specific points in time.
+- ADCs Operation Process :
 
-    2. Quantization: The sampled analog voltage is then quantized into a digital representation. This process involves assigning digital values to the analog signal based on its amplitude.
+   1. Sampling: The ADC samples the analog input signal at discrete time intervals. This involves capturing the voltage of the analog signal at specific points in time.
 
-    3. Encoding: The quantized values are encoded into binary digits (bits), producing a digital representation of the analog signal. The digital representation is then available for further processing by a digital system, such as a microcontroller.
+   2. Quantization: The sampled analog voltage is then quantized into a digital representation. This process involves assigning digital values to the analog signal based on its amplitude.
 
- Types of ADCs:
+   3. Encoding: The quantized values are encoded into binary digits (bits), producing a digital representation of the analog signal. The digital representation is then available for further processing by a digital system, such as a microcontroller.
+
+- Types of ADCs:
 
     1. Successive Approximation ADC: This type of ADC employs a successive approximation algorithm to determine the digital output. It compares the input voltage with a series of reference voltages and adjusts them successively until a close match is achieved. This is one of the most common types of ADC due to its balance between speed and resolution.
 
@@ -26,33 +27,34 @@
 ## 2. ADC ATmega328p
 
 ### 2.1 Features
-    1. 10-bit Resolution: The ADC (Analog-to-Digital Converter) in the ATmega328p has a resolution of 10 bits. This means it can represent analog input voltages across a range by converting them into digital values between 0 and 1023 (2^10 - 1).
+   
+   1. 10-bit Resolution: The ADC (Analog-to-Digital Converter) in the ATmega328p has a resolution of 10 bits. This means it can represent analog input voltages across a range by converting them into digital values between 0 and 1023 (2^10 - 1).
 
-    2. 0.5 LSB Integral Non-linearity: This refers to the maximum deviation from an ideal straight line, expressed in terms of Least Significant Bits (LSBs). In this case, the integral non-linearity is kept within 0.5 LSB, ensuring accuracy in the conversion process.
+   2. 0.5 LSB Integral Non-linearity: This refers to the maximum deviation from an ideal straight line, expressed in terms of Least Significant Bits (LSBs). In this case, the integral non-linearity is kept within 0.5 LSB, ensuring accuracy in the conversion process.
 
-    3. ± 2 LSB Absolute Accuracy: This indicates the maximum deviation of the ADC's output from the ideal digital output. The ADC in the ATmega328p has an absolute accuracy of ± 2 LSB, which ensures reliable and consistent conversion results.
+   3. ± 2 LSB Absolute Accuracy: This indicates the maximum deviation of the ADC's output from the ideal digital output. The ADC in the ATmega328p has an absolute accuracy of ± 2 LSB, which ensures reliable and consistent conversion results.
 
-    4. 13 - 260 µs Conversion Time: The time taken by the ADC to convert an analog input voltage into a digital value ranges from 13 to 260 microseconds, depending on the ADC clock frequency and resolution settings.
+   4. 13 - 260 µs Conversion Time: The time taken by the ADC to convert an analog input voltage into a digital value ranges from 13 to 260 microseconds, depending on the ADC clock frequency and resolution settings.
 
-    5. Up to 76.9 kSPS (Up to 15 kSPS at Maximum Resolution): The ADC can sample analog signals at a maximum rate of 76.9 kilosamples per second (kSPS) with reduced resolution. At maximum resolution (10-bit), the maximum sampling rate is limited to 15 kSPS.
+   5. Up to 76.9 kSPS (Up to 15 kSPS at Maximum Resolution): The ADC can sample analog signals at a maximum rate of 76.9 kilosamples per second (kSPS) with reduced resolution. At maximum resolution (10-bit), the maximum sampling rate is limited to 15 kSPS.
 
-    6. 6 Multiplexed Single-Ended Input Channels: The ADC supports up to 6 single-ended input channels, allowing the microcontroller to sample multiple analog signals sequentially.
+   6. 6 Multiplexed Single-Ended Input Channels: The ADC supports up to 6 single-ended input channels, allowing the microcontroller to sample multiple analog signals sequentially.
 
-    7. 2 Additional Multiplexed Single-Ended Input Channels (TQFP and QFN/MLF Package only): In certain package variants (TQFP and QFN/MLF), there are two additional single-ended input channels available for sampling analog signals.
+   7. 2 Additional Multiplexed Single-Ended Input Channels (TQFP and QFN/MLF Package only): In certain package variants (TQFP and QFN/MLF), there are two additional single-ended input channels available for sampling analog signals.
 
-    8. Temperature Sensor Input Channel: The ADC includes a dedicated input channel for measuring the temperature using an internal temperature sensor integrated into the microcontroller.
+   8. Temperature Sensor Input Channel: The ADC includes a dedicated input channel for measuring the temperature using an internal temperature sensor integrated into the microcontroller.
 
-    9. Optional Left Adjustment for ADC Result Readout: The ADC result can be left-adjusted, allowing easier interfacing with certain external devices.
+   9. Optional Left Adjustment for ADC Result Readout: The ADC result can be left-adjusted, allowing easier interfacing with certain external devices.
 
-    10. 0 - VCC ADC Input Voltage Range: The ADC can accept input voltages in the range of 0 to the supply voltage (VCC) of the microcontroller.
+   10. 0 - VCC ADC Input Voltage Range: The ADC can accept input voltages in the range of 0 to the supply voltage (VCC) of the microcontroller.
 
-    11. Selectable 1.1V ADC Reference Voltage: The ADC can utilize an internal 1.1V reference voltage for conversions, providing a stable reference for accurate measurements.
+   11. Selectable 1.1V ADC Reference Voltage: The ADC can utilize an internal 1.1V reference voltage for conversions, providing a stable reference for accurate measurements.
 
-    12. Free Running or Single Conversion Mode: The ADC can operate in either free-running mode, continuously sampling inputs, or single conversion mode, where it performs a single conversion upon request.
+   12. Free Running or Single Conversion Mode: The ADC can operate in either free-running mode, continuously sampling inputs, or single conversion mode, where it performs a single conversion upon request.
 
-    13. Interrupt on ADC Conversion Complete: The microcontroller can generate an interrupt when an ADC conversion is completed, allowing the CPU to perform other tasks while waiting for conversions to finish.
+   13. Interrupt on ADC Conversion Complete: The microcontroller can generate an interrupt when an ADC conversion is completed, allowing the CPU to perform other tasks while waiting for conversions to finish.
 
-    14. Sleep Mode Noise Canceler: This feature helps to reduce noise during ADC conversions while the microcontroller is in sleep mode, ensuring accurate and reliable measurements even in low-power states.
+   14. Sleep Mode Noise Canceler: This feature helps to reduce noise during ADC conversions while the microcontroller is in sleep mode, ensuring accurate and reliable measurements even in low-power states.
 
 ### 2.2 Registers 
 
